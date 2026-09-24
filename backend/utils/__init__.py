@@ -12,8 +12,8 @@ TIME_FORMAT = "%Y-%m-%dT%H:%M:%S"
 
 
 def now_iso():
-    """返回当前时间的 ISO 字符串。"""
-    return datetime.utcnow().strftime(TIME_FORMAT)
+    """返回当前时间的 ISO 字符串（本地时间，与 parse_time 口径一致）。"""
+    return datetime.now().strftime(TIME_FORMAT)
 
 
 def now_ts():

@@ -38,7 +38,7 @@ def contest_elapsed(contest, ts=None):
     start = parse_time(contest.get("start_time"))
     if start is None or ts <= start:
         return 0
-    return int(ts - start) + 28800
+    return int(ts - start)
 
 
 def _score_dir(contest_id):
