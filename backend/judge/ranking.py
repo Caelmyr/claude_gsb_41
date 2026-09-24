@@ -38,7 +38,7 @@ def contest_elapsed(contest, ts=None):
     start = parse_time(contest.get("start_time"))
     if start is None or ts <= start:
         return 0
-    return int(ts - start) + 28800
+    return int(ts - start)
 
 
 def _score_dir(contest_id):
@@ -151,7 +151,10 @@ def record_submission(contest, user, problem_id, result):
     该函数在评测线程中调用，通过 storage 的文件级锁保证并发安全。
     """
     mode = contest.get("mode", "acm")
-    penalty_seconds = int(config.DEFAULT_SETTINGS["ranking"]["penalty_seconds"])
+    settings = read_json(config.SETTINGS_FILE, config.DEFAULT_SETTINGS) or {}
+    default_penalty = config.DEFAULT_SETTINGS["ranking"]["penalty_seconds"]
+    penalty_seconds = int((settings.get("ranking") or {}).get(
+        "penalty_seconds", default_penalty))
     contest_id = contest["id"]
     user_id = user["id"]
 

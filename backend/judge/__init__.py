@@ -15,7 +15,6 @@ import subprocess
 import threading
 from collections import deque
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime
 
 from backend import config
 from backend.storage import read_json, locked_update, list_files, list_dirs
@@ -362,7 +361,7 @@ class JudgeEngine:
             s.update(
                 status=status, score=score, details=details,
                 compile_message=truncate(compile_message, 4000),
-                time_ms=time_ms, memory_kb=memory_kb, judged_at=datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+                time_ms=time_ms, memory_kb=memory_kb, judged_at=now_iso(),
             )
         updated = self._update_shard(sub_id, _upd)
         # 同步内存 recent 列表中的状态
